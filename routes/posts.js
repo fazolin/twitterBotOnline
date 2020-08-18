@@ -11,7 +11,7 @@ router.post('/', (req, res) => {
     const post = new Post({
         username: req.body.username,
         twitte: req.body.twitte,
-        timestampe: req.body.timestamp
+        timestamp: req.body.timestamp
     });
 
     post.save()
