@@ -1,15 +1,13 @@
-const express = require('express')
-const app = express();
 const mongoose = require('mongoose');
-const bodyParser = require('body-parser');
 require('dotenv').config();
+const Twit = require('twit');
+const config = require('./config');
+const T = new Twit(config);
+const Post = require('./models/Post')
 
-app.use(bodyParser.json());
+const hashtag = '#protagonistasdemascaras';
 
-const postRoute = require('./routes/posts');
-
-app.use('/post', postRoute);
-
+//////////Connect to db
 
 mongoose.connect(
     process.env.DB_CONNECTION, {
@@ -23,4 +21,49 @@ mongoose.connect(
     }
 });
 
-app.listen(process.env.PORT); // start server
+getTweets(); // first search
+console.log('Getting new tweets');
+
+////////// seacrh on interval
+
+setInterval(function () {
+    console.log('Getting new tweets');
+    getTweets()
+}, 60 * 1000);
+
+
+function getTweets() {
+
+    T.get('search/tweets', {
+        q: hashtag,
+        count: 100
+    }, function (err, data, response) {
+
+        for (let i = 0; i < data.statuses.length; i++) {
+
+            Post.find({ id: data.statuses[i].id }, function (err, docs) {
+                if (docs.length) {
+                    console.log('Name exists already');
+                } else {
+                    console.log('New tweet');
+                    const post = new Post({
+                        username: data.statuses[i].user.name,
+                        twitte: data.statuses[i].text,
+                        id: data.statuses[i].id
+                    });
+
+                    post.save()
+                        .then(data => {
+                            console.log('Tweet Salvo');
+                        })
+                        .catch(err => {
+                            console.log('Erro');
+                        });
+                }
+            });
+
+        }
+
+    })
+}
+

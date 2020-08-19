@@ -11,7 +11,7 @@ const postSchema = new mongoose.Schema({
     hashtag: {
         type: String
     },
-    timestamp: {
+    id: {
         type: String
     }
 
