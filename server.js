@@ -1,13 +1,27 @@
-// const express = require('express')
-// const app = express();
+const express = require('express')
+const app = express();
+
 const mongoose = require('mongoose');
+
 require('dotenv').config();
+
 const Twit = require('twit');
 const config = require('./config');
 const T = new Twit(config);
-const Post = require('./models/Post')
+
+const Post = require('./models/Post');
+
+const bodyParser = require('body-parser');
 
 const hashtag = '#protagonistasdemascaras';
+
+const postRoute = require('./routes/post'); // import routs to admin
+
+//////////Parsing//////////
+
+app.use(bodyParser.json()); // make parsing json in all routes
+app.use('/', postRoute);
+
 
 //////////Connect to db
 
@@ -69,6 +83,6 @@ function getTweets() {
     })
 }
 
-// app.listen(process.env.PORT, () => {
-//     console.log('Listen on ' + process.env.PORT + ' port')
-// }); // start server
+app.listen(process.env.PORT, () => {
+    console.log('Listen on ' + process.env.PORT + ' port')
+}); // start server
