@@ -13,6 +13,10 @@ const Post = require('./models/Post');
 
 const bodyParser = require('body-parser');
 
+var cors = require('cors');
+
+app.use(cors());
+
 const hashtag = '#protagonistasdemascaras';
 
 const postRoute = require('./routes/post'); // import routs to admin
