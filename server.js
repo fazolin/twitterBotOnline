@@ -1,5 +1,5 @@
-const express = require('express')
-const app = express();
+// const express = require('express')
+// const app = express();
 const mongoose = require('mongoose');
 require('dotenv').config();
 const Twit = require('twit');
@@ -69,6 +69,6 @@ function getTweets() {
     })
 }
 
-app.listen(process.env.PORT, () => {
-    console.log('Listen on ' + process.env.PORT + ' port')
-}); // start server
+// app.listen(process.env.PORT, () => {
+//     console.log('Listen on ' + process.env.PORT + ' port')
+// }); // start server
