@@ -31,7 +31,7 @@ console.log('Getting new tweets');
 setInterval(function () {
     console.log('Getting new tweets');
     getTweets()
-}, 60 * 1000);
+}, process.env.TIMEOUT);
 
 
 function getTweets() {
