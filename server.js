@@ -17,7 +17,7 @@ var cors = require('cors');
 
 app.use(cors());
 
-const hashtag = '#protagonistasdemascaras';
+const hashtag = '#sp467';
 
 const postRoute = require('./routes/post'); // import routs to admin
 
