@@ -7,7 +7,7 @@ const config = require('./config');
 const T = new Twit(config);
 const Post = require('./models/Post')
 
-const hashtag = '#protagonistasdemascaras';
+const hashtag = '#sp467';
 
 //////////Connect to db
 
